@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SkyWay - P2P Data example</title>
+    <link rel="stylesheet" href="../_shared/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="heading">P2P Data example</h1>
+      <p class="note">
+        Enter remote peer ID to connect.
+      </p>
+      <div class="p2p-data">
+        <div>
+          <p>Your ID: <span id="js-local-id"></span></p>
+          <input type="text" placeholder="Remote Peer ID" id="js-remote-id">
+          <button id="js-connect-trigger">Connect</button>
+          <button id="js-close-trigger">Close</button>
+        </div>
+        <div>
+          <pre class="messages" id="js-messages"></pre>
+          <input type="text" id="js-local-text">
+          <button id="js-send-trigger">Send</button>
+        </div>
+      </div>
+      <p class="meta" id="js-meta"></p>
+    </div>
+    <script src="//cdn.webrtc.ecl.ntt.com/skyway-4.4.1.js"></script>
+    <script>
+        const Peer = window.Peer;
+
+(async function main() {
+  const localId = document.getElementById('js-local-id');
+  const localText = document.getElementById('js-local-text');
+  const connectTrigger = document.getElementById('js-connect-trigger');
+  const closeTrigger = document.getElementById('js-close-trigger');
+  const sendTrigger = document.getElementById('js-send-trigger');
+  const remoteId = document.getElementById('js-remote-id');
+  const messages = document.getElementById('js-messages');
+  const meta = document.getElementById('js-meta');
+  const sdkSrc = document.querySelector('script[src*=skyway]');
+
+  meta.innerText = `
+    UA: ${navigator.userAgent}
+    SDK: ${sdkSrc ? sdkSrc.src : 'unknown'}
+  `.trim();
+
+  const peer = (window.peer = new Peer({
+    key: 'SKY WAY Keyを入力してください',
+    debug: 3,
+  }));
+
+  // Register connecter handler
+  connectTrigger.addEventListener('click', () => {
+    // Note that you need to ensure the peer has connected to signaling server
+    // before using methods of peer instance.
+    if (!peer.open) {
+      return;
+    }
+
+    const dataConnection = peer.connect(remoteId.value);
+
+    dataConnection.once('open', async () => {
+      messages.textContent += `=== DataConnection has been opened ===\n`;
+
+      sendTrigger.addEventListener('click', onClickSend);
+    });
+
+    dataConnection.on('data', data => {
+      messages.textContent += `Remote: ${data}\n`;
+    });
+
+    dataConnection.once('close', () => {
+      messages.textContent += `=== DataConnection has been closed ===\n`;
+      sendTrigger.removeEventListener('click', onClickSend);
+    });
+
+    // Register closing handler
+    closeTrigger.addEventListener('click', () => dataConnection.close(true), {
+      once: true,
+    });
+
+    function onClickSend() {
+      const data = localText.value;
+      dataConnection.send(data);
+
+      messages.textContent += `You: ${data}\n`;
+      localText.value = '';
+    }
+  });
+
+  peer.once('open', id => (localId.textContent = id));
+
+  // Register connected peer handler
+  peer.on('connection', dataConnection => {
+    dataConnection.once('open', async () => {
+      messages.textContent += `=== DataConnection has been opened ===\n`;
+
+      sendTrigger.addEventListener('click', onClickSend);
+    });
+
+    dataConnection.on('data', data => {
+      messages.textContent += `Remote: ${data}\n`;
+    });
+
+    dataConnection.once('close', () => {
+      messages.textContent += `=== DataConnection has been closed ===\n`;
+      sendTrigger.removeEventListener('click', onClickSend);
+    });
+
+    // Register closing handler
+    closeTrigger.addEventListener('click', () => dataConnection.close(true), {
+      once: true,
+    });
+
+    function onClickSend() {
+      const data = localText.value;
+      dataConnection.send(data);
+
+      messages.textContent += `You: ${data}\n`;
+      localText.value = '';
+    }
+  });
+
+  peer.on('error', console.error);
+})();
+    </script>
+  </body>
+</html>
