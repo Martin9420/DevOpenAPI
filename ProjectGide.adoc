@@ -1,0 +1,209 @@
+== SkyWayアプリケーション作成初期環境構築ガイド
+=== 構築対象環境
+* IDE
+    - Eclipse
+* フロントアプリケーション開発ツール
+    - VSCode
+* DB
+    - PostgreSQL
+* PostgreSQL動作環境
+    - Docker コンテナ
+* Web Application Server
+    - WildFly
+
+== Eclipseの環境構築方法
+本プロジェクトでは、Eclipse2020-06を利用しています。 +
+Eclipseを利用するにあたり環境構築を以下の手順で行ってください。 +
+１：下記リンク先にアクセスし、Javaの環境変数登録用のJDKをインストールしてください。
+https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html +
+.JDKのインストールについて
+NOTE: Java SE8をダウンロードしてください。 +
+２：ダウンロード完了後、インストーラーを実行し、JDKを適当なディレクトリに配置します。 +
+３：次に、インストールしたJDKを環境変数のパスに通す作業に移ります。 +
+４：Windowsの検索ボックスで「コントロールパネル」を検索してください。 +
+５：コントロールパネルを開き、システムを選択 +
+image:GideImage/Control.PNG[] +
+６：システムを選択後、Windows標準の詳細情報ウィンドウが開くので、右上にある「システムの詳細設定」を選択。 +
+image:GideImage/desktop.PNG[] +
+７：システムのプロパティウィンドウが開くので、「環境変数」を選択。 +
+image:GideImage/Systemenv.PNG[] +
+８：システムの環境変数の「新規」を選択し、新しいシステム変数ウィンドウが開くので、先ほどインストールしたJDKの”bin”フォルダまでのパスを以下のように設定。 +
+image:GideImage/JAVA_HOME.PNG[] +
+９：JAVA_HOMEの設定が完了後、同じシステム環境変数の中の「Path」を選択し、新規ボタンを選択。 +
+１０：その後、先ほどのJDKのフォルダパスを新規で追加し、その追加したパスをリストの一番上部に配置し、環境変数へのJAVA_HOMEの設定は終了です。 +
+最後に、環境変数にパスがちゃんと登録されているか確認をしてみましょう。 +
+Windowsの検索ボックスに「cmd」と入力してください。 +
+すると、コマンドプロンプトが立ち上がるので、以下のコマンドを実行してください。 +
+>java -version +
+以下のレスポンスが来たらしっかりとJAVA_HOMEの環境変数のパスが通っています。 +
+image:GideImage/cmd.PNG[] +
+
+== Eclipseのインストール方法
+１：以下リンクにてEclipseのインストーラーをダウンロードしてください。 +
+https://www.eclipse.org/downloads/packages/release/2020-06 +
+２：リンクにアクセス後、以下の画面に遷移するので、「R Package」を選択。 +
+image:GideImage/RPackage.PNG[] +
+３：「R Package」を選択し、以下の画面に遷移するので、「Eclipse IDE for Enterprise Java Developers」の「Windows x86_64」を選択。 +
+
+.開発環境について
+NOTE: この画面では、お使いのPCのOSを確認しインストールを行ってください。 ＊Windows：「Windows x86_64」Mac：「macOS x86_64」Linux：「Linux x86_64」 +
+image:GideImage/JavaIDE.PNG[] +
+４：上記メニューを選択後、以下の画面に遷移するので、画面中央のDownloadを押下し、インストーラーをダウンロードし、完了後にインストーラを使い「Eclipse」を取得してください。
+image:GideImage/DownloadUI.PNG[] +
+以上で、Eclipseの環境構築及びIDEのインストールは完了です。 +
+
+== VSCodeのインストール方法（必要に応じて）
+ここでは、VSCodeのインストール方法、及び推奨されるプラグインの紹介を行います。必要に応じてインストール及びプラグインの導入を行ってください。 +
+１：VSCodeのインストールを行うため、下記リンクにアクセスをしインストーラーをダウンロードしてください。 +
+https://azure.microsoft.com/ja-jp/products/visual-studio-code/ +
+２：インストーラをダウンロード後、ガイドに従いVSCodeをインストールしてください。
+
+=== VSCodeの推奨プラグインの導入について
+以下に、フロントアプリを開発するにあたり必要なプラグインを紹介します。必要に応じてプラグインの導入をお願いいたします。 +
+
+* Auto Rename Tag +
+image:GideImage/AutoRenameTag.PNG[] +
+* CSSTree validator +
+image:GideImage/CSSTreeValidator.PNG[] +
+* HTML CSS Support +
+image:GideImage/HTMLCSSSupport.PNG[] +
+* HTMLHint +
+image:GideImage/HTMLHint.PNG[] +
+* IntelliSense for CSS class names in HTML +
+image:GideImage\IntelliSenseforCSSclassnamesinHTML.PNG[] +
+* Japanese Language Pack forVisual Studio Code +
+image:GideImage/JapaneseLaunguagePackforVisualStudioCode.PNG[] +
+* javascript console utils +
+image:GideImage/javascriptconsoleutils.PNG[] +
+* Live HTML Previewer +
+image:GideImage/LiveHTMLPreviewer.PNG[] +
+* Live Server +
+image:GideImage/LiveServer.PNG[] +
+* Live Share +
+image:GideImage/LiveShare.PNG[] +
+* REST Client +
+image:GideImage/RESTClient.PNG[] +
+* Visual Studio IntelliCode +
+image:GideImage/VisualStudioIntelliCode.PNG[] +
+* zenkaku +
+image:GideImage/zenkaku.PNG[] +
+以上が、フロントアプリケーションを開発する際の推奨プラグインとなります。また、状況によりプラグインを別途インストールする必要がありますので、ご注意ください。 +
+
+== DB(PostgreSQL)の環境構築方法
+まず、以下サイトにアクセスし、PostgreSQLのjarファイルのインストールを行ってください +
+https://jdbc.postgresql.org/download.html +
+
+.PostgreSQL Jarファイルについて
+NOTE: jarファイルバージョン：PostgreSQL-42.2.17.jar +
+対象jarインストールリンク：Version 42.2.17, JDBC4.2の42.2.17 JDBC42を選択し、jarファイルのインストールを行ってください。 +
+image:GideImage/PostgreSQL4.PNG[] +
+
+今回、DBはDocker上のコンテナとして動作をさせます。 +
+もし、Dockerのインストールがまだの方は、「Dockerのインストール手順」を先に行い、その後PostgreSQLコンテナの環境構築をお願いいたします。 +
+１：まず、Dockerコンテナイメージの取得をDocker Hubから行います。 +
+以下のコマンドをコマンドプロンプトで実行してください。 +
+>docker pull postgres +
+２：その後、以下コマンドを実行すると、イメージが取得できたことを確認できます。 +
+>docker images +
+３：以下のコマンドを実行し、取得したDockerイメージから、コンテナのプロセスを実行します。 +
+>docker run –name test_postgres -e POSTGRES_PASSWORD=test-pass -d -p 15432:5432 postgres +
+
+.コマンドの説明
+NOTE: １： -name test-postgres +
+-nameオプションでtest_postgresというコンテナ名を指定しています。これを指定することで、コンテナを指定した名前で参照することができます。 +
+２：-e POSTGRES_PASSWORD=test-pass +
+-eオプションで環境変数を追加することができます。
+ユーザー名とデータベース名は何も指定しなくてもpostgresが初期値として設定されています。 +
+postgresのDockerイメージからコンテナを動かすためには、最低限パスワードPOSTGRES_PASSWORDを指定する必要があります。 +
+３：-d +
+「デタッチド・モード」すなわちコンテナをバックグラウンドで起動するオプションです。 +
+４：-p 15432:5432 +
+-pオプションは外部のポートとコンテナ内部のポートを接続するオプションです。 +
+-p 15432:5432はローカルの15432ポートにアクセスすると、dockerコンテナ内部の5432ポートで動いているアプリケーションに接続できるようになります。 +
+５：postgres +
+dockerイメージを指定しています。 +
+
+４：プロセスの確認 +
+以下のコマンドを実行することで起動中のプロセスを確認することができます。 +
+>docker ps +
+実行すると、以下のように表示されます。 +
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+fa07e2716e4d postgres “docker-entrypoint.s…” 10 seconds ago Up 9 seconds 0.0.0.0:15432->5432/tcp test_postgres +
+５PostgreSQLにアクセスする。 +
+以下リンクにアクセスし、PostgreSQLの環境をローカルで確認できるようにします。 +
+https://www.postgresql.org/download/ +
+image:GideImage/PostgreSQL.PNG[] +
+インストーラーをダウンロードするために利用PCのOSにあった項目を選択し、PostgreSQLのインストーラーをダウンロードしてください。 +
+６：以下の画面に遷移後、「Download the installer」を選択してください。 +
+image:GideImage/PostgreSQL2.PNG[] +
+７：インストーラーのダウンロードが完了後、インストーラーを起動しPostgreSQLのアプリケーションをインストールしてください。 +
+８：アプリケーションインストール完了後、pgAdmin4を実行し、PostgreSQLのローカルインストールは完了です。 +
+＊DBのテーブル作成については別途記載します。 +
+
+== Dockerのインストール
+当プロジェクトでは、PostgreSQLをDockerコンテナ上で動かしています。 +
+そこで、Dockerのインストールが必要であり、Dockerの初期環境構築用としてDocker環境構築ガイドを記載します。 +
+１：WindowsのHyper-Vを有効にしてください。 +
+Hyper-Vの有効方法は以下サイトを参考に設定を行ってください。 +
+https://docs.microsoft.com/ja-jp/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v +
+２：以下サイトにアクセスをしDocker For Desktopをインストールしてください。 +
+https://www.docker.com/products/docker-desktop +
+インストール完了後、Dockerの設定画面で、「Use The WSL 2 based engine」のチェックボックスを外してください。 +
+以上で、Dockerの環境構築は終了です。 +
+
+== WildFlyサーバのインストール及び環境構築
+以下サイトより、WildFlyサーバをローカルにインストールしてください。 +
+ここでは、バージョン20.0.1.Finalを選択してください。 +
+https://www.wildfly.org/downloads/ +
+image:GideImage/WildFly20.0.1.Final.PMG[] +
+Zipファイルのインストール完了後、解凍し、以下のディレクトリにあるバッジファイルを実行します。 +
+C:\Users\user\wildfly-20.0.1.Final\bin\add-user.bat +
+手順１：コマンドプロンプトを開き、add-user.batファイルがあるディレクトリまで移動します。 +
+手順２：ディレクトリ移動が完了後、add-user.batを実行し、WildFlyサーバの管理コンソールにアクセスするためのユーザIDとPasswordを設定します。 +
+手順３：ユーザIDとPassword設定後、全て「yes」を入力し、WildFlyサーバの環境構築は終了です。 +
+== EclipseへのWildFlyサーバの導入
+WildFlyのサーバを起動する準備は既に整っていると思います。 +
+次に行うのは、ExlipseへWildFlyサーバをインストールする手順になります。 +
+以下の手順でEclipseへWildFlyサーバを導入してください。 +
+手順１：Eclipseのメニューバーの「Help」→「Eclipse Marketplace」を選択 +
+手順２：Eclipse Marketplaceの検索ボックスにて、「JBoss Tools 4.16.0.Final」と検索し、インストール +
+image:GideImage/JBossTools.PNG[] +
+手順３：インストール完了後、Eclipseの再起動が求められるので、Eclipseを再起動し、インストールは終了です。 +
+手順４：次に、サーバービューからwildFly20の追加をするために、サーバービューで右クリックし、「NEW」→「Server」→「JBoss Community」の「WildFly 20」を選択し、次へ を選択し、Finishを押下し、WildFlyサーバのインストールは終了です。 +
+== WildFlyサーバの構成設定
+最後に、WildFlyのサーバ構成設定を行います。 +
+まず、以下のリンクからWildFlyのマネジメントコンソールんいアクセスしてください。 +
+http://localhost:9990/console/index.html#home +
+アクセス後、サインインを要求されるので、WildFlyのユーザ設定を行う際に設定をした、「ユーザID」と「パスワード」を入力してください。 +
+マネジメントコンソールにログイン後、以下の画面に遷移しますので、「Deployments」を選択します。 +
+image:GideImage/WildFly.PNG[] +
+選択後、jarファイルのデプロイ設定画面に遷移するので、画面左側のメニューに「プラスマーク」があるのでそちらを選択し、「Upload Deployment」を選択し、PostgreSQLのjarファイルをデプロイします。 +
+デプロイ方法は、エクスプローラーでjarファイルインストールディレクトリから、WildFlyのデプロイメント画面へドラッグアンドドロップをするだけでjarファイルの配置ができます。 +
+image:GideImage/AddDeployment.PNG[] +
+デプロイが完了後、ホーム画面へ戻り、今度は「Configration」を選択してください。 +
+選択後、Configrationのメニュー画面に遷移しますので、以下の手順で目的の設定画面まで遷移します。 +
+手順１：ConfigurationからSubsystemsを選択します。 +
+image:GideImage/Configration.PNG[] +
+手順２：Datasorces&Driversを選択します。 +
+image:GideImage/Datasources&Drivers.PNG[] +
+手順３：Datasourcesを選択します。 +
+image:GideImage/Datasources.PNG[] +
+手順４：Datasourcesを選択後、Datasourceの追加画面に遷移をするので、ここでも右上のプラスマークで「Add Datasource」を選択します。 +
+手順５：以下の画面が表示されるので、ここでは「PostgreSQL」を選択し「Next」 +
+image:GideImage/PostgreSQL3.PNG[] +
+手順６：Attributesの設定画面に遷移するので、以下の「Name」と「JNDI Name」を入力し「Next」 +
+Name: ChameleonReadCommitted +
+JNDI Name: java:/jdbc/ChameleonReadCommitted +
+image:GideImage/Attribute.PNG[] +
+手順７：JDBC Driverの設定が求められるので、以下の内容を入力し、「Next」 +
+Driver Name: postgresql-42.2.17.jar *インストールをしたjarファイル名を入力してください。 +
+Driver Module Name: デフォルトで入力されている値を使用 +
+Driver Class Name: デフォルトで入力されている値を使用 +
+手順８：PostgreSQLへのConnection情報を以下の内容で入力してください。 +
+Connection URL: jdbc:postgresql://localhost:5432/postgres
+User Name: PostgreSQLをインストールした際に設定したユーザ名 +
+Password: PostgreSQLをインストールした際に設定したパスワード +
+Security Domain: 入力なし +
+image:GideImage/AddDatasource.PNG[] +
+手順９：最後に、テストコネクションを行い、PostgreSQLへ正常にコネクションを張ることが確認出来ましたら、WildFlyのサーバ構成設定は以上です。 +
+
