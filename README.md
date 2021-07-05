@@ -18,6 +18,19 @@ WebMeeting Application Projectへようこそ！！
 ## 各ガイドについて
 [AWS CodeGuru利用環境整備ガイド](https://github.com/Martin9420/Phase1/blob/main/AWSCodeGuru%E5%88%A9%E7%94%A8%E3%82%AC%E3%82%A4%E3%83%89/AWSCodeGuru.adoc)
 
+## 現在のプロジェクト進行状況について
+- [x] Web Meeting APIの調査及び実証実験
+- [x] API 定義書の作成
+- [ ] API 仕様書の作成
+- [ ] ログインAPIの作成
+- [ ] ログインAPIの修正作業
+- [ ] カレンダーAPIの作成
+
+##今後のミーティングスケジュール
+- [ ] 2021/7/10
+- [ ] 2021/7/17
+- [ ] 2021/7/24
+- [ ] 2021/7/31
 
 ## プロジェクト進行ルール
 1. 正解はありません。誰もが正解者です。
