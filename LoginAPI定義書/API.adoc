@@ -1,0 +1,182 @@
+== Login API definition
+.API list
+[options="header,footer"]
+|====================================================================================
+|No |Method |URI                                 |descriptions
+|1  |POST  |http://localhost:8080/NewRegistUser  |Register a new user.
+|2  |POST  |http://localhost:8080/LoginUser      |Login process for newly registered users
+|3  |PUT   |http://localhost:8080/UpdateUser     |Update processing of registered user information
+|4  |DELETE|http://localhost:8080/DeleteUser     |Process to delete registered users
+|====================================================================================
+
+== RequestBody
+.http://localhost:8080/NewRegistUser
+----
+{
+    "userid": "user0000",
+    "password": "password",
+    "name": "Name",
+    "adress": "Tokyo",
+    "nickname": "nickname",
+    "age": "00"
+    "sex": "man"
+    "mailadress": "mailadress@gmail.com"
+}
+----
+.http://localhost:8080/LoginUser
+----
+{
+    "userid": "user0000",
+    "password": "password"
+}
+----
+.http://localhost:8080/UpdateUser
+----
+{
+    "password": "Password",
+    "name": "name123",
+    "userid": "user1234",
+    "age": "11",
+    "adress": "Chiba",
+    "mailadress": "mailadress2@gmail.com"
+}
+----
+.http://localhost:8080/DeleteUser
+----
+{
+    "userid": "user1234",
+    "password": "Password"
+}
+----
+
+== ResponseBody
+.http://localhost:8080/NewRegistUser
+・Success(201 created)
+----
+{
+    "code": "201 CREATED",
+    "time": "2021-07-05T17:16:21.749",
+    "message": "Success To Create New User Information"
+}
+----
+・Faile(400 BadRequest)
+----
+{
+    "code": "400 BADREQUEST",
+    "time": "2021-07-05T17:16:21.749",
+    "message": "Faile to Create User New UserInformation for 400 BadRequest"
+}
+----
+・Faile(409 Conflict)
+----
+{
+    "code": "409 CONFLICT",
+    "time": "2021-07-05T17:16:21.749",
+    "message": "Faile to Create User New UserInformmation for 409 Conflict"
+}
+----
+・Faile(500 InternalServerError)
+----
+{
+    "code": "500 INTERNALSERVERERROR",
+    "time": "2021-07-05T17:16:21.749",
+    "message": "Faile to Connect PostgreSQL for 500 InternalServerError"
+}
+----
+.http://localhost:8080/LoginUser
+・Success(200 OK)
+----
+{
+    "code": "200 OK",
+    "time": "2021-07-05T17:16:21.749",
+    "message": "Success to Login"
+}
+----
+・Faile(401 Unauthorized)
+----
+{
+    "code": "401 UNAUTHORIZED",
+    "time": "2021-07-05T17:16:21.749",
+    "message": "Faile to authorization UserInformation for 401 unauthorized"
+}
+----
+・Faile(500 InternalServerError)
+----
+{
+    "code": "500 INTERNALSERVERERROR",
+    "time": "2021-07-05T17:16:21.749",
+    "message": "Faile to Connect PostgreSQL for 500 InternalServerError"
+}
+----
+.http://localhost:8080/UpdateUser
+・Success(201 created)
+----
+{
+    "code": "201 CREATED",
+    "time": "2021-07-05T17:16:21.749",
+    "message": "Success To Update User Information"
+}
+----
+・Faile(400 BadRequest)
+----
+{
+    "code": "400 BADREQUEST",
+    "time": "2021-07-05T17:16:21.749",
+    "message": "Faile to Update UserInformation for 400 BadRequest"
+}
+----
+・Faile(401 Unauthorized)
+----
+{
+    "code": "401 UNAUTHORIZED",
+    "time": "2021-07-05T17:16:21.749",
+    "message": "Faile to authorization UserInformation for 401 unauthorized"
+}
+----
+・Faile(500 InternalServerError)
+----
+{
+    "code": "500 INTERNALSERVERERROR",
+    "time": "2021-07-05T17:16:21.749",
+    "message": "Faile to Connect PostgreSQL for 500 InternalServerError"
+}
+----
+.http://localhost:8080/DeleteUser
+・Success(200 OK)
+----
+{
+    "code": "200 OK",
+    "time": "2021-07-05T17:16:21.749",
+    "message": "Success to Delete"
+}
+----
+・Faile(400 BadRequest)
+----
+{
+    "code": "400 BADREQUEST",
+    "time": "2021-07-05T17:16:21.749",
+    "message": "Faile to DELETE UserInformation for 400 BadRequest"
+}
+----
+・Faile(401 Unauthorized)
+----
+{
+    "code": "401 UNAUTHORIZED",
+    "time": "2021-07-05T17:16:21.749",
+    "message": "Faile to authorization UserInformation for 401 unauthorized"
+}
+----
+・Faile(500 InternalServerError)
+----
+{
+    "code": "500 INTERNALSERVERERROR",
+    "time": "2021-07-05T17:16:21.749",
+    "message": "Faile to Connect PostgreSQL for 500 InternalServerError"
+}
+----
+
+= Description
+== About the above request body and response body +
+For the request body, registration is completed only after entering all the information required for new user registration. +
+Therefore, when designing the screen, it is necessary to add "require" to all the input items on the new registration screen and show the user to fill in the input items. +
+All input items must be satisfied, including the other DELETE and PUT methods as well as the POST method. +
