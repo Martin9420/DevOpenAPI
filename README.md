@@ -15,6 +15,10 @@ WebMeeting Applicationへようこそ！！
 初期環境構築を行うには、[環境構築ガイド](https://github.com/Martin9420/Phase1/blob/main/SkyWayProjectGide/ProjectGide.adoc)を参考に環境構築を行ってください。
 また、順次利用環境が変更になった場合は、ガイドを更新していきますので、都度連絡させていただきます。
 
+## 各ガイドについて
+[AWS CodeGuru利用環境整備ガイド](https://github.com/Martin9420/Phase1/blob/main/AWSCodeGuru%E5%88%A9%E7%94%A8%E3%82%AC%E3%82%A4%E3%83%89/AWSCodeGuru.adoc)
+
+
 ## プロジェクト進行ルール
 1. 正解はありません。誰もが正解者です。
 2. 第三者を思いやった言動を心がけましょう
