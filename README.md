@@ -1,6 +1,6 @@
 # WebMeeting Application Project
 ## ようこそ
-WebMeeting Applicationへようこそ！！
+WebMeeting Application Projectへようこそ！！
 
 ## プロジェクトへの参加方法
 プロジェクトへの参加方法は、以下の手順に則り参加をお願いいたします。
