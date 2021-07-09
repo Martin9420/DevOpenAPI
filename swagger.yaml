@@ -1,0 +1,368 @@
+swagger: "2.0"
+info:
+  description: "This API specification is an API that supports new registration and login of users, and update and deletion of logged-in user information."
+  version: "1.0.0"
+  title: "Swagger LoginAPI"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "LoginAPI.swagger.io"
+basePath: "/v2"
+tags:
+- name: "Login API"
+  description: "Operations about user"
+  externalDocs:
+    description: ""
+    url: "http://swagger.io"
+schemes:
+- "http"
+paths:
+  /Login:
+    post:
+      tags:
+      - "Login API"
+      summary: ""
+      description: "Regist a new user"
+      operationId: "newuser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Support new user registration"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            userid:
+              type: "string"
+              example: "user0000"
+            password:
+              type: "string"
+              example: "password"
+            name:
+              type: "string"
+              example: "Name"
+            adress:
+              type: "string"
+              example: "Tokyo"
+            age:
+              type: "integer"
+              example: 10
+            sex:
+              type: "string"
+              example: "man"
+            mailadress:
+              type: "string"
+              example: "mailadress@gmail.com"
+      responses:
+        "201":
+          description: "Success(201 created)"
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "string"
+                example: "201 CREATED"
+              time:
+                type: "string"
+                example: "2021-07-05T17:16:21.749"
+              message:
+                type: "string"
+                example: "Success To Create New User Information"
+        "400":
+          description: "Faile(400 BadRequest)"
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "string"
+                example: "400 BADREQUEST"
+              time: 
+                type: "string"
+                example: "2021-07-05T17:16:21.749"
+              message:
+                type: "string"
+                example: "Faile to Create User New UserInformation for 400 BadRequest"
+        "409":
+          description: "Faile(409 Conflict)"
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "string"
+                example: "409 CONFLICT"
+              time:
+                type: "string"
+                example: "2021-07-05T17:16:21.749"
+              message:
+                type: "string"
+                example: "Faile to Create User New UserInformmation for 409 Conflict"
+        "500":
+          description: "Faile(500 Internal Server Error)"
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "string"
+                example: "500 INTERNALSERVERERROR"
+              time:
+                type: "string"
+                example: "2021-07-05T17:16:21.749"
+              message:
+                type: "string"
+                example: "Faile to Connect PostgreSQL for 500 InternalServerError"
+  
+    put:
+      tags:
+      - "Login API"
+      summary: "Supports updating login user information"
+      description: ""
+      operationId: "updateserInformation"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          type: "object"
+          properties:
+            userid:
+              type: "string"
+              example: "user0000"
+            password:
+              type: "string"
+              example: "password"
+            name:
+              type: "string"
+              example: "Name"
+            adress:
+              type: "string"
+              example: "Tokyo"
+            age:
+              type: "integer"
+              example: 10
+            mailadress:
+              type: "string"
+              example: "mailadress@gmail.com"
+      responses:
+        "201":
+          description: "Success(201 created)"
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "string"
+                example: "201 CREATED"
+              time:
+                type: "string"
+                example: "2021-07-05T17:16:21.749"
+              message:
+                type: "string"
+                example: "Success To Update User Information"
+        "400":
+          description: "Faile(400 BadRequest)"
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "string"
+                example: "400 BADREQUEST"
+              time:
+                type: "string"
+                example: "2021-07-05T17:16:21.749"
+              message:
+                type: "string"
+                example: "Faile to Update UserInformation for 400 BadRequest"
+        "401":
+          description: "Faile(401 Unauthorized)"
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "string"
+                example: "401 UNAUTHORIZED"
+              time:
+                type: "string"
+                example: "2021-07-05T17:16:21.749"
+              message:
+                type: "string"
+                example: "Faile to authorization UserInformation for 401 unauthorized"
+        "500":
+          description: "Faile(500 Internal Server Error)"
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "string"
+                example: "500 INTERNALSERVERERROR"
+              time: 
+                type: "string"
+                example: "2021-07-05T17:16:21.749"
+              message:
+                type: "string"
+                example: "Faile to Connect PostgreSQL for 500 InternalServerError"
+        
+    delete:
+      tags:
+      - "Login API"
+      summary: "Supports deletion of login user information"
+      description: "Delete a user"
+      operationId: "deleteuser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          type: "object"
+          properties:
+            userid:
+              type: "string"
+              example: "user0000"
+            password:
+              type: "string"
+              example: "password"
+      responses:
+        "200":
+          description: "Success(200 OK)"
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "string"
+                example: "200 OK"
+              time: 
+                type: "string"
+                example: "2021-07-05T17:16:21.749"
+              message:
+                type: "string"
+                example: "Success to Delete"
+        "400":
+          description: "Faile(400 BadRequest)"
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "string"
+                example: "400 BADREQUEST"
+              time:
+                type: "string"
+                example: "2021-07-05T17:16:21.749"
+              message:
+                type: "string"
+                example: "Faile to DELETE UserInformation for 400 BadRequest"
+        "401":
+          description: "Faile(401 Unauthorized)"
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "string"
+                example: "401 UNAUTHORIZED"
+              time:
+                type: "string"
+                example: "2021-07-05T17:16:21.749"
+              message: 
+                type: "string"
+                example: "Faile to authorization UserInformation for 401 unauthorized"
+        "500":
+          description: "Faile(500 Internal Server Error)"
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "string"
+                example: "500 INTERNALSERVERERROR"
+              time:
+                type: "string"
+                example: "2021-07-05T17:16:21.749"
+              message:
+                type: "string"
+                example: "Faile to Connect PostgreSQL for 500 InternalServerError"
+    
+  /Login API/LoginUser:
+    post:
+      tags:
+      - "Login API"
+      summary: "Support user login"
+      description: "Login a user"
+      operationId: "LoginUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          type: "object"
+          properties:
+            userid:
+              type: "string"
+              example: "user0000"
+            password:
+              type: "string"
+              example: "password"
+      responses:
+        "200":
+          description: "Success(200 OK)"
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "string"
+                example: "200 OK"
+              time:
+                type: "string"
+                example: "2021-07-05T17:16:21.749"
+              message:
+                type: "string"
+                example: "Success to Login"
+        "401":
+          description: "Faile(401 Unauthorized)"
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "string"
+                example: "401 UNAUTHORIZED"
+              time:
+                type: "string"
+                example: "2021-07-05T17:16:21.749"
+              message:
+                type: "string"
+                example: "Faile to authorization UserInformation for 401 unauthorized"
+        "500":
+          description: "Faile(500 Internal Server Error)"
+          schema:
+            type: "object"
+            properties:
+              code:
+                type: "string"
+                example: "500 INTERNALSERVERERROR"
+              time:
+                type: "string"
+                example: "2021-07-05T17:16:21.749"
+              message:
+                type: "string"
+                example: "Faile to Connect PostgreSQL for 500 InternalServerError"
+  
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
