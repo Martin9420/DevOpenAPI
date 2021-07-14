@@ -1,6 +1,6 @@
 # WebMeeting Application Project
 ## ようこそ
-WebMeeting Application Projectへようこそ！！
+DevOpenAPIへようこそ！！
 
 ## プロジェクトへの参加方法
 プロジェクトへの参加方法は、以下の手順に則り参加をお願いいたします。
@@ -33,6 +33,7 @@ WebMeeting Application Projectへようこそ！！
 - [ ] 2021/7/31
 
 ## スキル範囲について
-
+スキル習得可能範囲及び必要なスキルについて明記しています。
+以下のリンクを参照ください。
 
 
