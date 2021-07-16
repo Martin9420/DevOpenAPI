@@ -41,5 +41,5 @@ DevOpenAPIへようこそ！！
 ## スキル範囲について
 スキル習得可能範囲及び必要なスキルについて明記しています。
 以下のリンクを参照ください。
-
+[DevOpenAPIスキルエリアガイド](https://github.com/Martin9420/DevOpenAPI/blob/main/DevOpenAPI%E3%82%B9%E3%82%AD%E3%83%AB%E3%82%A8%E3%82%A4%E3%83%AA%E3%82%A2%E3%82%B9/DevOpenAPISkillArea.adoc)
 
